@@ -1,7 +1,7 @@
 silent.require <- function(x) suppressMessages(require(package=x, character.only=TRUE, quietly=TRUE))
 
 # Load packages that are already installed
-packages <- c("dplyr", "tidyr", "sf", "nlme", "nls2")
+packages <- c("dplyr", "tidyr", "sf", "nlme", "nls2", "ggplot2", "RColorBrewer", "nlraa")
 
 ready <- sapply(packages, silent.require)
 

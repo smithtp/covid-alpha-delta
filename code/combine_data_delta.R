@@ -193,16 +193,6 @@ summ_npi <- england_npis[,c("Date", "StringencyIndex", "GovernmentResponseIndex"
                    containment_health = mean(ContainmentHealthIndex, na.rm=TRUE),
                    economic_support = mean(EconomicSupportIndex, na.rm = TRUE))
 
-# time-lag these variables too
-summ_npi <- summ_npi %>%
-  mutate(stringency_lag1 = lag(stringency, 1),
-         stringency_lag2 = lag(stringency, 2),
-         gov_response_lag1 = lag(gov_response, 1),
-         gov_response_lag2 = lag(gov_response, 2),
-         containment_health_lag1 = lag(containment_health, 1),
-         containment_health_lag2 = lag(containment_health, 2),
-         economic_support_lag1 = lag(economic_support, 1),
-         economic_support_lag2 = lag(economic_support, 2))
 
 # now merge this into the transmission data
 STP_rts <- left_join(STP_rts, summ_npi, by =  "epiweek")
