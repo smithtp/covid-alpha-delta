@@ -71,7 +71,7 @@ model_linear <- function(data, variable, vax, filename, asymp){
   # first partial out the the effects of non-climate factors
   # and the temporal and spatial effects
   if(vax == TRUE){
-    r.model <- lm(data[[variable]] ~ s.stringency + s.vax + s.pop + poly(s.time, 3), data = data)
+    r.model <- lm(data[[variable]] ~ s.stringency + s.vax + s.pop + area + poly(s.time, 3), data = data)
   }else{
     r.model <- lm(data[[variable]] ~ s.stringency + s.pop + area + poly(s.time, 3), data = data) 
   }
