@@ -9,10 +9,16 @@ alpha_sweep <- read.csv("data/alpha_background_climate.csv")
 # delta sweep
 delta_sweep <- read.csv("data/delta_alpha_climate.csv")
 
+# omicron sweep
+omicron_sweep <- read.csv("data/omicron_delta_climate.csv")
+
 # Remove cornwall because too few cases for accurate Rt estimates
 alpha_sweep <- alpha_sweep[alpha_sweep$area != "Cornwall and the Isles of Scilly",]
 delta_sweep <- delta_sweep[delta_sweep$area != "Cornwall and the Isles of Scilly",]
 
+# also remove some unreasonable estimates from the omicron data
+# (probably data being very sparse for those combination of stp and week)
+omicron_sweep <- omicron_sweep %>% filter(Ratio < 18)
 
 # Gelman suggests "Subtract mean and divide by 2 stdevs" 
 # "Scaling regression inputs by dividing by two standard deviations", Stats Medicine, 2008
@@ -43,6 +49,17 @@ delta_sweep$s.stringency <- new_scale(delta_sweep$stringency)
 delta_sweep$s.proportion <- new_scale(delta_sweep$delta_proportion)
 delta_sweep$s.vax <- new_scale(delta_sweep$full_vax_rate)
 delta_sweep$s.time <- new_scale(delta_sweep$epiweek)
+
+omicron_sweep$s.temp <- new_scale(omicron_sweep$temperature)
+omicron_sweep$s.spec.humid <- new_scale(omicron_sweep$specific_humidity)
+omicron_sweep$s.rel.humid <- new_scale(omicron_sweep$relative_humidity)
+omicron_sweep$s.uv <- new_scale(omicron_sweep$uv)
+omicron_sweep$s.precip <- new_scale(omicron_sweep$precipitation)
+omicron_sweep$s.pop <- new_scale(log10(omicron_sweep$Pop_density))
+omicron_sweep$s.stringency <- new_scale(omicron_sweep$stringency)
+omicron_sweep$s.proportion <- new_scale(omicron_sweep$omicron_proportion)
+omicron_sweep$s.vax <- new_scale(omicron_sweep$full_vax_rate)
+omicron_sweep$s.time <- new_scale(omicron_sweep$epiweek)
 
 ####################################
 ## --------- MAIN CODE  --------- ##
@@ -154,7 +171,14 @@ model_linear(data = alpha_sweep[alpha_sweep$epiweek<=52,], variable = "backgroun
 model_linear(data = delta_sweep, variable = "delta_Rt", filename = "delta", vax = TRUE, asymp = FALSE)
 model_linear(data = delta_sweep, variable = "alpha_Rt", vax = TRUE)
 
+# -- Omicron analysis -- #
+model_linear(data = omicron_sweep, variable = "omicron_Rt", filename = "omicron", vax = TRUE, asymp = FALSE)
+model_linear(data = omicron_sweep, variable = "delta_Rt", vax = TRUE)
+
+
 # Results:
 # Strong climate effects during Alpha sweep - temperature is strongest predictor
 # No significant climate effects during Delta sweep
 # Moreover, there is less unexplained variation missing during Delta that could be explained by climate
+# No significant climate effects during Omicron sweep
+# Hardly any left-over variation to be explained by climate.
