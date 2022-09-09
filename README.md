@@ -1,5 +1,5 @@
 # covid-alpha-delta
-Investigating the climate response of alpha and delta SARS-CoV-2 variants
+Investigating the climate response of alpha, delta and omicron SARS-CoV-2 variants
 
 ## Data
 
