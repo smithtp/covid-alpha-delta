@@ -9,10 +9,14 @@ Investigating the climate response of alpha and delta SARS-CoV-2 variants
  - `oxford-interventions.csv` - NPI data from the Oxford COVID-19 Government Response Tracker (https://github.com/OxCGRT/covid-policy-tracker/tree/master/data).
  - `sgtf_output.csv` - Rt of Delta and Alpha strains during Delta sweep, produced for this study using same methods and data source as Volz paper.
  - `cases_data.rds` - S+ and S- cases during Delta sweep, for this study, using same methods and data source as Volz paper.
+ - `omicron_cases.rds` - S+ and S- cases during Omicron sweep for this study, using same methods as Volz.
+ - `transmission_individual_results_omicron.rds` - Rt of omicron and delta strains during Omicron selective sweep, using same methods as Volz.
  - `/gis/` folder - shapefiles for UK STP and LTLA areas, obtained from the office for national statistics (https://geoportal.statistics.gov.uk).
  - `ltla-vacc.csv` - vaccination data, obtained from UK government portal (https://coronavirus.data.gov.uk/).
- - `data/alpha_background_climate.csv` - Rt and environment of alpha and background strains during the alpha variant sweep, produced by `combine_data_alpha.R`.
+ - `alpha_background_climate.csv` - Rt and environment of alpha and background strains during the alpha variant sweep, produced by `combine_data_alpha.R`.
  - `delta_alpha_climate.csv` - Rt and environment of delta and alpha strains during the delta variant sweep, produced by `combine_data_delta.R`.
+ - `omicron_delta_climate.csv` - Rt and environment of omicron and delta strains during the first omicron variant sweep, produced by `combine_data_omicron.R`.
+
 
 
 ## Code
@@ -20,4 +24,7 @@ Investigating the climate response of alpha and delta SARS-CoV-2 variants
 - `packages.R` - source required packages, download any that are missing.
 - `combine_data_alpha.R` - combine raw data for alpha variant sweep.
 - `combine_data_delta.R` - combine raw data for delta variant sweep.
+- `combine_data_omicron.R` - combine raw data for omicron variant sweep.
 - `analysis.R` - perform the main analyses.
+- `overview-figure.R` - create the spatial and temporal overview figures.
+- `supplementary-figures.R` - as it says on the tin.
